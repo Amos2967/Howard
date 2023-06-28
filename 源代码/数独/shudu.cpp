@@ -1,5 +1,5 @@
 /*
-** Authorï¼šXsj,Xyr
+** Author£ºXsj,Xyr
 ** Date: 2023/6/28
 */
 #include"shudu.h"
@@ -64,7 +64,8 @@ void settle(int pos) {
             }
             ques_board[i][j] = '0';
         }
-    } else {
+    }
+    else {
         settle(pos + 2);
     }
 
@@ -73,7 +74,7 @@ void settle(int pos) {
     }
 }
 
-// ä»æŒ‡å®šè·¯å¾„ä¸­è¯»å–æ•°ç‹¬æ–‡ä»¶ï¼Œå¹¶å°†é¢˜è§£å†™å…¥sudoku.txt
+// ´ÓÖ¸¶¨Â·¾¶ÖĞ¶ÁÈ¡Êı¶ÀÎÄ¼ş£¬²¢½«Ìâ½âĞ´Èësudoku.txt
 bool settle_ques() {
     int begin = 0, end = 0;
     FILE* fpQues, * fpSolution;
@@ -105,7 +106,8 @@ bool settle_ques() {
         }
         if (flag == -1) {
             strSolution[161] = '\0';
-        } else {
+        }
+        else {
             strSolution[161] = '\n';
             strSolution[162] = '\n';
             strSolution[163] = '\0';
@@ -119,7 +121,7 @@ bool settle_ques() {
     return true;
 }
 
-// äº§ç”Ÿnä¸ªæ•°ç‹¬ç»ˆå±€
+// ²úÉún¸öÊı¶ÀÖÕ¾Ö
 bool sudoku_generate(int n) {
     int cot = n;
     buf[0] = '\0';
@@ -200,7 +202,7 @@ bool sudoku_generate(int n) {
     } while (next_permutation(line + 1, line + 9));
 }
 
-// ç”Ÿæˆnä¸ªæ•°ç‹¬æ¸¸æˆ
+// Éú³Én¸öÊı¶ÀÓÎÏ·
 bool ques_generate1(int ques_num) {
     FILE* fpQues1;
     FILE* fpBase1;
@@ -264,7 +266,7 @@ bool ques_generate1(int ques_num) {
     return true;
 }
 
-// ç”Ÿæˆnä¸ªæ•°ç‹¬æ¸¸æˆï¼ŒdiffæŒ‡å®šç”Ÿæˆéš¾åº¦
+// Éú³Én¸öÊı¶ÀÓÎÏ·£¬diffÖ¸¶¨Éú³ÉÄÑ¶È
 bool ques_generate2(int ques_num, int diff) {
     FILE* fpQues1;
     FILE* fpBase1;
@@ -337,7 +339,7 @@ bool ques_generate2(int ques_num, int diff) {
     return true;
 }
 
-// ç”Ÿæˆnä¸ªæ•°ç‹¬æ¸¸æˆï¼Œé™åˆ¶æŒ–ç©ºçš„æ•°åœ¨ä¸€å®šçš„èŒƒå›´ä¹‹ä¸­
+// Éú³Én¸öÊı¶ÀÓÎÏ·£¬ÏŞÖÆÍÚ¿ÕµÄÊıÔÚÒ»¶¨µÄ·¶Î§Ö®ÖĞ
 bool ques_generate3(int ques_num, int space_num1, int space_num2) {
     FILE* fpQues1;
     FILE* fpBase1;
@@ -401,7 +403,7 @@ bool ques_generate3(int ques_num, int space_num1, int space_num2) {
     return true;
 }
 
-// ç”Ÿæˆnä¸ªæ•°ç‹¬æ¸¸æˆï¼Œè¦æ±‚è§£å”¯ä¸€
+// Éú³Én¸öÊı¶ÀÓÎÏ·£¬ÒªÇó½âÎ¨Ò»
 bool ques_generate4(int ques_num) {
     FILE* fpQues1;
     FILE* fpBase1;

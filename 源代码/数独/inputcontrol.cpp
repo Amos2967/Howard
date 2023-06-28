@@ -1,4 +1,4 @@
-/*
+﻿/*
 ** Author：Xsj,Xyr
 ** Date: 2023/6/28
 */
@@ -23,7 +23,7 @@ void Input::ParameterProcess() {
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
                     cout << "Illegal paramater\n" << "The second param should be a positive integer\n";
-                    return ;
+                    return;
                 }
             }
 
@@ -33,8 +33,9 @@ void Input::ParameterProcess() {
             }
             if (number < 1 || number>1000000) {
                 printf("Please input 1 to 1000000֮\n");
-                return ;
-            } else {
+                return;
+            }
+            else {
                 this->num = number;
                 this->type1 = 'c';
             }
@@ -42,7 +43,7 @@ void Input::ParameterProcess() {
         //-s 指定路径，默认为ques.txt
         if (!strcmp(this->argv[1], "-s")) {
             this->type1 = 's';
-            strncpy(AbsolutePath, this->argv[2], 30);  
+            strncpy(AbsolutePath, this->argv[2], 30);
         }
         //-n 数独游戏盘数
         if (!strcmp(this->argv[1], "-n")) {
@@ -50,7 +51,7 @@ void Input::ParameterProcess() {
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
                     cout << "Illegal paramater\n" << "The second param should be a positive integer\n";
-                    return ;
+                    return;
                 }
             }
 
@@ -60,17 +61,19 @@ void Input::ParameterProcess() {
             }
             if (number < 1 || number>1000000) {
                 printf("Please input 1 to 1000000֮\n");
-                return ;
-            } else {
+                return;
+            }
+            else {
                 this->num = number;
                 this->type1 = 'n';
             }
         }
-    } else if (argc == 4) {
+    }
+    else if (argc == 4) {
         //-n num -u 数独唯一解
-        if (strcmp(this->argv[1], "-n") && strcmp(this->argv[3], "-u"))    {
+        if (strcmp(this->argv[1], "-n") && strcmp(this->argv[3], "-u")) {
             cout << "Illegal paramater\n" << "The first param should be -n, the third should be -u\n";
-            return ;
+            return;
         }
 
         if (!strcmp(this->argv[1], "-n")) {
@@ -78,7 +81,7 @@ void Input::ParameterProcess() {
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
                     cout << "Illegal paramater\n" << "The second param should be a positive integer\n";
-                    return ;
+                    return;
                 }
             }
 
@@ -88,18 +91,20 @@ void Input::ParameterProcess() {
             }
             if (number < 1 || number>1000000) {
                 printf("Please input 1 to 1000000֮\n");
-                return ;
-            } else {
+                return;
+            }
+            else {
                 this->num = number;
                 this->type1 = 'n';
                 this->type2 = 'u';
             }
         }
-    } else if (argc == 5) {
+    }
+    else if (argc == 5) {
         if (strcmp(this->argv[1], "-n") && (strcmp(this->argv[3], "-m")
-        || strcmp(this->argv[3], "-r"))) {
+            || strcmp(this->argv[3], "-r"))) {
             cout << "Illegal paramater\n" << "The first param should be -n, the third -r or -m\n";
-            return ;
+            return;
         }
 
         if (!strcmp(this->argv[1], "-n")) {
@@ -107,7 +112,7 @@ void Input::ParameterProcess() {
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
                     cout << "Illegal paramater\n" << "The second param should be a positive int\n";
-                    return ;
+                    return;
                 }
             }
 
@@ -117,8 +122,9 @@ void Input::ParameterProcess() {
             }
             if (number < 1 || number>1000000) {
                 printf("Please input 1 to 1000000֮\n");
-                return ;
-            } else {
+                return;
+            }
+            else {
                 this->num = number;
                 this->type1 = 'n';
             }
@@ -126,31 +132,32 @@ void Input::ParameterProcess() {
             if (!strcmp(this->argv[3], "-m")) {
                 if (this->argv[4][0] > '3' || this->argv[4][0] < '1') {
                     cout << "Illegal paramater\n" << "The forth param should be a positive int(1-3)\n";
-                    return ;
+                    return;
                 }
 
                 int diff = 0;
                 diff = this->argv[4][0] - '0';
                 this->type2 = 'm';
                 this->diff = diff;
-            } else {
-            //-n -r 指示挖空范围
+            }
+            else {
+                //-n -r 指示挖空范围
                 int len = strlen(this->argv[4]);
                 if (this->argv[4][0] > '9' || this->argv[4][0] < '0') {
                     cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
-                    return ;
+                    return;
                 }
                 if (this->argv[4][1] > '9' || this->argv[4][1] < '0') {
                     cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
-                    return ;
+                    return;
                 }
                 if (this->argv[4][3] > '9' || this->argv[4][3] < '0') {
                     cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
-                    return ;
+                    return;
                 }
                 if (this->argv[4][4] > '9' || this->argv[4][4] < '0') {
                     cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
-                    return ;
+                    return;
                 }
                 int number1 = 0;
                 int number2 = 0;
@@ -163,22 +170,23 @@ void Input::ParameterProcess() {
                 this->range2 = number2;
             }
         }
-    } else {
+    }
+    else {
         cout << "Illegal paramater number\n"
             << "Usage:\n"
-            << "      sudoku.exe -c number --> "
+            << "      sudoku.exe -c number --> \n"
             << " generate n sudoku finals into the default path(sudoku.txt) \n"
-            << "      sudoku.exe -s path -->"
+            << "      sudoku.exe -s path -->\n"
             << " Read sudoku from file in the given path and solve them into the default path(sudoku.txt).\n"
-            << "      sudoku.exe -n number --> "
+            << "      sudoku.exe -n number --> \n"
             << " produce n sudoku problems into the default path(ques.txt)\n"
-            << "      sudoku.exe -n number -u --> "
+            << "      sudoku.exe -n number -u --> \n"
             << " produce n sudoku problems(Having a unique solution) into the default path(ques.txt)\n"
-            << "      sudoku.exe -n number -m diff --> "
+            << "      sudoku.exe -n number -m diff --> \n"
             << " produce n sudoku problems(Difficulty of diff(1-3)) into the default path(ques.txt)\n"
-            << "      sudoku.exe -n number -r range1~range2 --> "
+            << "      sudoku.exe -n number -r range1~range2 --> \n"
             << " produce n sudoku problems(The number that needs to be filled is between range1 and range2) into the default path(ques.txt)\n";
-        return ;
+        return;
     }
 }
 

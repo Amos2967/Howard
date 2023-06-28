@@ -1,5 +1,5 @@
 /*
-** Authorï¼šXsj,Xyr
+** Author£ºXsj,Xyr
 ** Date: 2023/6/28
 */
 #pragma once
@@ -44,3 +44,4 @@ extern bool solveSudoku(int grid[UN][UN]);
 extern bool findEmptySpace(int grid[UN][UN], int* row, int* col);
 extern bool isValidInsert(int grid[UN][UN], int row, int col, int num);
 #endif  // !GENERATORH
+

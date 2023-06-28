@@ -1,11 +1,11 @@
 /*
-** Authorï¼šXsj,Xyr
+** Author£ºXsj,Xyr
 ** Date: 2023/6/28
 */
 #ifndef INPUTCONTROL
 #define INPUTCONTROL
 class Input {
- public:
+public:
     void ParameterProcess();
     Input(int a, char** b);
     char GetType1();
@@ -14,7 +14,7 @@ class Input {
     int GetDiff();
     int GetRange1();
     int GetRange2();
- private:
+private:
     int argc;
     char** argv;
     char type1;
@@ -25,3 +25,4 @@ class Input {
     int num;
 };
 #endif
+
