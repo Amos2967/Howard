@@ -10,11 +10,11 @@ int total = 0;
 
 void prune(int i, int j, bool point[10]) {
     for (int k = 0; k < 18; k += 2) {
-        if (ques_board[i][k] != '0' && k != j)
+        if (ques_board[i][k] != '$' && k != j)
             point[ques_board[i][k] - '0'] = true;
     }
     for (int k = 0; k < 9; k++) {
-        if (ques_board[k][j] != '0' && k != i)
+        if (ques_board[k][j] != '$' && k != i)
             point[ques_board[k][j] - '0'] = true;
     }
     int m = 0, n = 0;
@@ -34,7 +34,7 @@ void prune(int i, int j, bool point[10]) {
 
     for (int c = m; c < m + 3; c++) {
         for (int d = n; d < n + 6; d += 2) {
-            if (c != i && d != j && ques_board[c][d] != '0')
+            if (c != i && d != j && ques_board[c][d] != '$')
                 point[ques_board[c][d] - '0'] = true;
         }
     }
@@ -51,7 +51,7 @@ void settle(int pos) {
 
     bool point[10] = { false };
 
-    if (ques_board[i][j] == '0') {
+    if (ques_board[i][j] == '$') {
         prune(i, j, point);
 
         for (k = 1; k <= 9; k++) {
@@ -62,7 +62,7 @@ void settle(int pos) {
             if (settle_flag) {
                 return;
             }
-            ques_board[i][j] = '0';
+            ques_board[i][j] = '$';
         }
     }
     else {
@@ -221,32 +221,33 @@ bool ques_generate1(int ques_num) {
         int base[9] = { 0, 6, 12, 54, 60, 66, 108, 114, 120 };
         int plus[9] = { 0, 2, 4, 18, 20, 22, 36, 38, 40 };
         // unsigned int seed = 123;
+        srand(ques_num);
         for (int k = 0; k < 9; k++) {
             int i, j,
                 hole[2];
-            hole[0] = rand() % 9;
-            hole[1] = rand() % 9;
+            hole[0] = (rand()- ques_num) % 9;
+            hole[1] = (rand() - ques_num) % 9;
             while (hole[0] == hole[1]) {
-                hole[1] = rand() % 9;
+                hole[1] = (rand() - ques_num) % 9;
             }
             for (int t = 0; t < 2; t++) {
                 int dot;
                 dot = base[k] + plus[hole[t]];
                 i = dot / 18;
                 j = dot % 18;
-                ques_board[i][j] = '0';
+                ques_board[i][j] = '$';
             }
         }
 
         int others;
-        others = 12 + rand() % 31;
+        others = 12 + (rand() - ques_num) % 31;
         while (others--) {
-            int k = rand() % 81;
+            int k = (rand() - ques_num) % 81;
             int i = k / 9;
             int j = k % 9;
             j *= 2;
-            if (ques_board[i][j] != '0')
-                ques_board[i][j] = '0';
+            if (ques_board[i][j] != '$')
+                ques_board[i][j] = '$';
             else
                 others++;
         }
@@ -284,42 +285,42 @@ bool ques_generate2(int ques_num, int diff) {
         fgetc(fpBase1);
         int base[9] = { 0, 6, 12, 54, 60, 66, 108, 114, 120 };
         int plus[9] = { 0, 2, 4, 18, 20, 22, 36, 38, 40 };
-
+        srand(ques_num);
         for (int k = 0; k < 9; k++) {
             int i, j,
                 hole[2];
-            hole[0] = rand() % 9;
-            hole[1] = rand() % 9;
+            hole[0] = (rand() - ques_num) % 9;
+            hole[1] = (rand() - ques_num) % 9;
             while (hole[0] == hole[1]) {
-                hole[1] = rand() % 9;
+                hole[1] = (rand() - ques_num) % 9;
             }
             for (int t = 0; t < 2; t++) {
                 int dot;
                 dot = base[k] + plus[hole[t]];
                 i = dot / 18;
                 j = dot % 18;
-                ques_board[i][j] = '0';
+                ques_board[i][j] = '$';
             }
         }
 
         int others = 0;  // 2-42
         // 2-22
         if (diff == 1) {
-            others = 2 + rand() % 21;
+            others = 2 + (rand() - ques_num) % 21;
         }
         // 23-37
         if (diff == 2)
-            others = 23 + rand() % 15;
+            others = 23 + (rand() - ques_num) % 15;
         // 38-42
         if (diff == 3)
-            others = 38 + rand() % 5;
+            others = 38 + (rand() - ques_num) % 5;
         while (others--) {
-            int k = rand() % 81;
+            int k = (rand() - ques_num) % 81;
             int i = k / 9;
             int j = k % 9;
             j *= 2;
-            if (ques_board[i][j] != '0')
-                ques_board[i][j] = '0';
+            if (ques_board[i][j] != '$')
+                ques_board[i][j] = '$';
             else
                 others++;
         }
@@ -356,33 +357,34 @@ bool ques_generate3(int ques_num, int space_num1, int space_num2) {
         fgetc(fpBase1);
         int base[9] = { 0, 6, 12, 54, 60, 66, 108, 114, 120 };
         int plus[9] = { 0, 2, 4, 18, 20, 22, 36, 38, 40 };
+        srand(ques_num);
         for (int k = 0; k < 9; k++) {
             int i, j,
                 hole[2];
-            hole[0] = rand() % 9;
-            hole[1] = rand() % 9;
+            hole[0] = (rand() - ques_num) % 9;
+            hole[1] = (rand() - ques_num) % 9;
             while (hole[0] == hole[1]) {
-                hole[1] = rand() % 9;
+                hole[1] = (rand() - ques_num) % 9;
             }
             for (int t = 0; t < 2; t++) {
                 int dot;
                 dot = base[k] + plus[hole[t]];
                 i = dot / 18;
                 j = dot % 18;
-                ques_board[i][j] = '0';
+                ques_board[i][j] = '$';
             }
         }
 
         int others;
-        int temp = rand() % (space_num2 - space_num1 + 1);
+        int temp = (rand() - ques_num) % (space_num2 - space_num1 + 1);
         others = space_num1 - 18 + temp;
         while (others--) {
-            int k = rand() % 81;
+            int k = (rand() - ques_num) % 81;
             int i = k / 9;
             int j = k % 9;
             j *= 2;
-            if (ques_board[i][j] != '0')
-                ques_board[i][j] = '0';
+            if (ques_board[i][j] != '$')
+                ques_board[i][j] = '$';
             else
                 others++;
         }
@@ -422,32 +424,32 @@ bool ques_generate4(int ques_num) {
 
         int base[9] = { 0, 6, 12, 54, 60, 66, 108, 114, 120 };
         int plus[9] = { 0, 2, 4, 18, 20, 22, 36, 38, 40 };
-
+        srand(ques_num);
         for (int k = 0; k < 9; k++) {
             int i, j,
                 hole[2];
-            hole[0] = rand() % 9;
-            hole[1] = rand() % 9;
+            hole[0] = (rand() - ques_num) % 9;
+            hole[1] = (rand() - ques_num) % 9;
             while (hole[0] == hole[1]) {
-                hole[1] = rand() % 9;
+                hole[1] = (rand() - ques_num) % 9;
             }
             for (int t = 0; t < 2; t++) {
                 int dot;
                 dot = base[k] + plus[hole[t]];
                 i = dot / 18;
                 j = dot % 18;
-                ques_board[i][j] = '0';
+                ques_board[i][j] = '$';
             }
         }
         int others;
-        others = 2 + rand() % 11;
+        others = 2 + (rand() - ques_num) % 11;
         while (others--) {
-            int k = rand() % 81;
+            int k = (rand() - ques_num) % 81;
             int i = k / 9;
             int j = k % 9;
             j *= 2;
-            if (ques_board[i][j] != '0')
-                ques_board[i][j] = '0';
+            if (ques_board[i][j] != '$')
+                ques_board[i][j] = '$';
             else
                 others++;
         }

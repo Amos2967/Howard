@@ -185,7 +185,8 @@ void Input::ParameterProcess() {
             << "      sudoku.exe -n number -m diff --> \n"
             << " produce n sudoku problems(Difficulty of diff(1-3)) into the default path(ques.txt)\n"
             << "      sudoku.exe -n number -r range1~range2 --> \n"
-            << " produce n sudoku problems(The number that needs to be filled is between range1 and range2) into the default path(ques.txt)\n";
+            << " produce n sudoku problems(The number that needs to be filled is between range1(20-55) and range2(20-55))\n"
+            << " into the default path(ques.txt)\n";
         return;
     }
 }
