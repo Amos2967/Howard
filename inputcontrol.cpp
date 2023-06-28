@@ -22,8 +22,7 @@ void Input::ParameterProcess() {
             int len = strlen(this->argv[2]);
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The second param should be a positive integer\n";
+                    cout << "Illegal paramater\n" << "The second param should be a positive integer\n";
                     return ;
                 }
             }
@@ -50,8 +49,7 @@ void Input::ParameterProcess() {
             int len = strlen(this->argv[2]);
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The second param should be a positive integer\n";
+                    cout << "Illegal paramater\n" << "The second param should be a positive integer\n";
                     return ;
                 }
             }
@@ -71,8 +69,7 @@ void Input::ParameterProcess() {
     } else if (argc == 4) {
         //-n num -u 数独唯一解
         if (strcmp(this->argv[1], "-n") && strcmp(this->argv[3], "-u"))    {
-            cout << "Illegal paramater\n"
-                << "The first param should be -n, the third should be -u\n";
+            cout << "Illegal paramater\n" << "The first param should be -n, the third should be -u\n";
             return ;
         }
 
@@ -80,8 +77,7 @@ void Input::ParameterProcess() {
             int len = strlen(this->argv[2]);
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The second param should be a positive integer\n";
+                    cout << "Illegal paramater\n" << "The second param should be a positive integer\n";
                     return ;
                 }
             }
@@ -102,8 +98,7 @@ void Input::ParameterProcess() {
     } else if (argc == 5) {
         if (strcmp(this->argv[1], "-n") && (strcmp(this->argv[3], "-m")
         || strcmp(this->argv[3], "-r"))) {
-            cout << "Illegal paramater\n"
-                << "The first param should be -n, the third -r or -m\n";
+            cout << "Illegal paramater\n" << "The first param should be -n, the third -r or -m\n";
             return ;
         }
 
@@ -111,8 +106,7 @@ void Input::ParameterProcess() {
             int len = strlen(this->argv[2]);
             for (int i = 0; i < len; i++) {
                 if (this->argv[2][i] > '9' || this->argv[2][i] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The second param should be a positive int\n";
+                    cout << "Illegal paramater\n" << "The second param should be a positive int\n";
                     return ;
                 }
             }
@@ -131,8 +125,7 @@ void Input::ParameterProcess() {
             //-n -m 指示难度等级
             if (!strcmp(this->argv[3], "-m")) {
                 if (this->argv[4][0] > '3' || this->argv[4][0] < '1') {
-                    cout << "Illegal paramater\n";
-                    cout << "The forth param should be a positive int(1-3)\n";
+                    cout << "Illegal paramater\n" << "The forth param should be a positive int(1-3)\n";
                     return ;
                 }
 
@@ -144,29 +137,19 @@ void Input::ParameterProcess() {
             //-n -r 指示挖空范围
                 int len = strlen(this->argv[4]);
                 if (this->argv[4][0] > '9' || this->argv[4][0] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The forth param should be a positive integer\n";
+                    cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
                     return ;
                 }
                 if (this->argv[4][1] > '9' || this->argv[4][1] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The forth param should be a positive integer\n";
+                    cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
                     return ;
                 }
-                /*if (argv[4][2] != '~' || argv[4][2] != '-')
-                {
-                    cout << "Illegal paramater\n";
-                    cout << "The split symbol should be ~ or -\n";
-                    return 1;
-                }*/
                 if (this->argv[4][3] > '9' || this->argv[4][3] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The forth param should be a positive integer\n";
+                    cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
                     return ;
                 }
                 if (this->argv[4][4] > '9' || this->argv[4][4] < '0') {
-                    cout << "Illegal paramater\n";
-                    cout << "The forth param should be a positive integer\n";
+                    cout << "Illegal paramater\n" << "The forth param should be a positive integer\n";
                     return ;
                 }
                 int number1 = 0;
@@ -184,13 +167,17 @@ void Input::ParameterProcess() {
         cout << "Illegal paramater number\n"
             << "Usage:\n"
             << "      sudoku.exe -c number --> "
-            << "generate n sudoku finals. \n"
-            << "      sudoku.exe -s path --> Read sudoku from"
-            << " file in the given path,and solve them.\n"
-            << "      sudoku.exe -n number --> produce sudoku problem"
-            << " into the given path(prepare for the sudoku game)\n"
-            << "      The charactre should be itself:"
-            << "such as C is not equal to c.\n";
+            << " generate n sudoku finals into the default path(sudoku.txt) \n"
+            << "      sudoku.exe -s path -->"
+            << " Read sudoku from file in the given path and solve them into the default path(sudoku.txt).\n"
+            << "      sudoku.exe -n number --> "
+            << " produce n sudoku problems into the default path(ques.txt)\n"
+            << "      sudoku.exe -n number -u --> "
+            << " produce n sudoku problems(Having a unique solution) into the default path(ques.txt)\n"
+            << "      sudoku.exe -n number -m diff --> "
+            << " produce n sudoku problems(Difficulty of diff(1-3)) into the default path(ques.txt)\n"
+            << "      sudoku.exe -n number -r range1~range2 --> "
+            << " produce n sudoku problems(The number that needs to be filled is between range1 and range2) into the default path(ques.txt)\n";
         return ;
     }
 }
