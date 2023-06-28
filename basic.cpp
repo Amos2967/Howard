@@ -1,3 +1,7 @@
+/*
+** Author：Xsj,Xyr
+** Date: 2023/6/28
+*/
 #include"shudu.h"
 static char buf[MAX];
 bool sudoku_generate(int n) {
@@ -213,7 +217,6 @@ bool ques_generate2(int ques_num, int diff) {
     fclose(fpQues1);
     return true;
 }
-
 bool ques_generate3(int ques_num, int space_num1, int space_num2) {
     FILE* fpQues1;
     FILE* fpBase1;
@@ -224,21 +227,21 @@ bool ques_generate3(int ques_num, int space_num1, int space_num2) {
     ques_board[9][1] = '\0';
     while (ques_num--) {
         str[0] = '\0';
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++)    {
             fgets(ques_board[i], 20, fpBase1);
         }
         fgetc(fpBase1);
         int base[9] = { 0, 6, 12, 54, 60, 66, 108, 114, 120 };
         int plus[9] = { 0, 2, 4, 18, 20, 22, 36, 38, 40 };
-        for (int k = 0; k < 9; k++) {
+        for (int k = 0; k < 9; k++)    {
             int i, j,
-                hole[2];
+            hole[2];
             hole[0] = rand() % 9;
             hole[1] = rand() % 9;
             while (hole[0] == hole[1]) {
                 hole[1] = rand() % 9;
             }
-            for (int t = 0; t < 2; t++) {
+            for (int t = 0; t < 2; t++)    {
                 int dot;
                 dot = base[k] + plus[hole[t]];
                 i = dot / 18;
@@ -267,9 +270,9 @@ bool ques_generate3(int ques_num, int space_num1, int space_num2) {
         }
         if (!ques_num) {
             str[161] = '\0';
-
+            
         }
-
+            
         fputs(str, fpQues1);
     }
     fclose(fpBase1);
@@ -288,7 +291,7 @@ bool ques_generate4(int ques_num) {
     // while (ques_num--)
     while (ques_num) {
         str[0] = '\0';
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++)    {
             fgets(ques_board[i], 20, fpBase1);
         }
         fgetc(fpBase1);
@@ -296,9 +299,9 @@ bool ques_generate4(int ques_num) {
         int base[9] = { 0, 6, 12, 54, 60, 66, 108, 114, 120 };
         int plus[9] = { 0, 2, 4, 18, 20, 22, 36, 38, 40 };
 
-        for (int k = 0; k < 9; k++) {
+        for (int k = 0; k < 9; k++)    {
             int i, j,
-                hole[2];
+            hole[2];
             hole[0] = rand() % 9;
             hole[1] = rand() % 9;
             while (hole[0] == hole[1]) {
@@ -339,16 +342,150 @@ bool ques_generate4(int ques_num) {
             }
             if (!ques_num) {
                 str[161] = '\0';
-
+                
             }
-
+                
             fputs(str, fpQues1);
-        }
-        else {
+        } else {
             continue;
         }
     }
     fclose(fpBase1);
     fclose(fpQues1);
+    return true;
+}
+
+bool checkUniqueness(int puzzle[UN][UN]) {
+    // get the number of missing spots
+    int missing = 0;
+
+    for (int i = 0; i < UN; i++) {
+        for (int j = 0; j < UN; j++) {
+            if (puzzle[i][j] == 0) {
+                missing++;
+            }
+        }
+    }
+
+    // get the rows and cols for each missing one
+    int* row = new int[missing];
+    int* col = new int[missing];
+
+    int counter = 0;
+
+    for (int i = 0; i < UN; i++) {
+        for (int j = 0; j < UN; j++) {
+            if (puzzle[i][j] == 0) {
+                row[counter] = i;
+                col[counter] = j;
+                counter++;
+            }
+        }
+    }
+
+    if (missing == 1 || missing == 0) {  // acounts for corner cases
+        return true;
+    }
+
+    // get a completely solved puzzle as an example
+    int solved[UN][UN];
+
+    copy_grid(solved, puzzle);
+    if (!solveSudoku(solved)) {
+        return false;
+    }
+
+    // search for another solution
+    for (int i = 0; i < missing; i++) {  // for each missing spot
+        for (int j = 0; j < UN; j++) {  // try each potential number
+            if (j != solved[row[i]][col[i]]) {
+                int test[UN][UN];
+                copy_grid(test, puzzle);
+                // try solving with new number
+                if (isValidInsert(test, row[i], col[i], j)) {
+                    test[row[i]][col[i]] = j;
+                    if (solveSudoku(test)) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+void copy_grid(int puzzleCopy[UN][UN], int puzzle[UN][UN]) {
+    for (int row = 0; row < UN; row++) {
+        for (int column = 0; column < UN; column++)
+            puzzleCopy[row][column] = puzzle[row][column];
+    }
+}
+
+bool solveSudoku(int grid[UN][UN]) {
+    int row, col;
+
+    // if no empty space is found, we solved it
+    if (!findEmptySpace(grid, &row, &col)) {
+        return true;
+    }
+
+    // attempt to insert numbers 1 - 9
+    for (int i = 1; i <= UN; i++) {
+        // check if inserting tht number is allowed
+        if (isValidInsert(grid, row, col, i)) {
+            grid[row][col] = i;   // if allowed, insert it
+            // if that number leads to a solution, great, stop.
+            if (solveSudoku(grid)) {
+                return true;
+            }
+
+            grid[row][col] = 0;
+        }
+    }
+    // if it gets here, there is no solution
+    return false;
+}
+
+bool findEmptySpace(int grid[UN][UN], int* row, int* col) {
+    for (int i = 0; i < UN; i++) {
+        for (int j = 0; j < UN; j++) {
+            // if it is zero, it is an empty space
+            if (grid[i][j] == 0) {
+                // save the row and column of the empty space
+                *row = i; *col = j;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool isValidInsert(int grid[UN][UN], int row, int col, int num) {
+    // check if the number exists elsewhere in the same row
+    for (int i = 0; i < UN; i++) {
+        if (i != col && grid[row][i] == num) {
+            return false;
+        }
+    }
+
+    // check if the number exists elsewhere in the same column
+    for (int i = 0; i < UN; i++) {
+        if (i != row && grid[i][col] == num) {
+            return false;
+        }
+    }
+
+    // check if the number exists elsewhere in the 3 x 3 grid
+
+    int startRow = row - (row % 3);  // starting row of the 3 x 3 grid
+    int startCol = col - (col % 3);  // starting column of the 3 x 3 grid
+
+    for (int i = startRow; i < startRow + 3; i++) {
+        for (int j = startCol; j < startCol + 3; j++) {
+            if (i != row && j != col && grid[i][j] == num) {
+                return false;
+            }
+        }
+    }
     return true;
 }

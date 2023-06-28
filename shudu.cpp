@@ -1,12 +1,8 @@
 /*
-** (C) Copyright 2020 Zty. LTD.(WuHan) All Rights Reserved.
-** Description：Shu
-** Author：Lyx,Sjy
-** Date: 
-** Modify Record:
-*/	
+** Author：Xsj,Xyr
+** Date: 2023/6/28
+*/
 #include"shudu.h"
-// using namespace std;
 static int num = 0;
 static int settle_flag = 0;
 
@@ -76,6 +72,53 @@ void settle(int pos) {
     }
 }
 
+int total = 0;
+bool settle_ques() {
+    int begin = 0, end = 0;
+    FILE* fpQues, * fpSolution;
+    char strSolution[200];
+    int n = 0;
+    // if(argv[2]==NULL)
+    if (AbsolutePath[0] == 0)
+        fpQues = fopen(QUESPATH, "r");
+    else
+        fpQues = fopen(AbsolutePath, "r");
+
+    fpSolution = fopen(SUDOKUPATH, "w");
+    int flag = 0;
+    while (1) {
+        n = 0;
+        flag = 0;
+        for (int i = 0; i < 9; i++) {
+            fgets(ques_board[i], 20, fpQues);
+        }
+        flag = fgetc(fpQues);
+
+        begin = clock();
+        settle_flag = 0;
+        settle(0);
+        end = clock();
+        total += end - begin;
+        // freopen(SOLUTIONPATH, "w", stdout);
+        strSolution[0] = '\0';
+        for (int i = 0; i < 9; i++) {
+            strncat(strSolution, ques_board[i], 20);
+        }
+        if (flag == -1) {
+            strSolution[161] = '\0';
+        } else {
+            strSolution[161] = '\n';
+            strSolution[162] = '\n';
+            strSolution[163] = '\0';
+        }
+        fputs(strSolution, fpSolution);
+        if (flag == -1)
+            break;
+    }
+    fclose(fpQues);
+    fclose(fpSolution);
+    return true;
+}
 
 
 int main(int argc, char** argv) {
