@@ -200,6 +200,7 @@ bool sudoku_generate(int n) {
             }
         }
     } while (next_permutation(line + 1, line + 9));
+    return false;
 }
 
 // 生成n个数独游戏
